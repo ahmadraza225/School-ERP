@@ -1,0 +1,102 @@
+:root {
+  --bg: #f4f6f9; --panel: #fff; --ink: #1c2430; --muted: #6b7584; --line: #e3e7ee;
+  --brand: #1f5fbf; --brand-soft: #e8f0fc; --ok: #1e8e4e; --warn: #c27a00; --bad: #c62828;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink); background: var(--bg); font-size: 15px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: var(--brand); }
+h1 { font-size: 22px; margin: 0 0 16px; }
+h2 { font-size: 17px; margin: 24px 0 10px; }
+
+.layout { display: flex; min-height: 100vh; }
+.sidebar { width: 220px; background: #14243d; color: #cfd8e6; padding: 16px 0; flex-shrink: 0; }
+.sidebar .brand { color: #fff; font-weight: 700; padding: 0 18px 16px; font-size: 16px; }
+.sidebar a { display: block; padding: 10px 18px; color: inherit; text-decoration: none; }
+.sidebar a.active, .sidebar a:hover { background: #22375a; color: #fff; }
+.sidebar .who { padding: 16px 18px; font-size: 13px; border-top: 1px solid #22375a; margin-top: 16px; }
+.main { flex: 1; padding: 24px; min-width: 0; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.stat .label { color: var(--muted); font-size: 13px; }
+.stat .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; margin-bottom: 12px; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+input, select, textarea { font: inherit; padding: 8px 10px; border: 1px solid #cdd3dc; border-radius: 7px; background: #fff; color: var(--ink); min-width: 0; }
+button { font: inherit; padding: 8px 14px; border-radius: 7px; border: 1px solid #cdd3dc; background: #fff; cursor: pointer; }
+button.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
+button.danger { color: var(--bad); border-color: #f0c4c4; }
+button:disabled { opacity: .5; cursor: default; }
+
+table { width: 100%; border-collapse: collapse; background: var(--panel); }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); font-size: 14px; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; background: #fafbfc; }
+td.num, th.num { text-align: right; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+
+.msg { padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+.msg.err { background: #fdecec; color: var(--bad); }
+.msg.ok { background: #e7f6ed; color: var(--ok); }
+.muted { color: var(--muted); }
+.pill { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 12px; background: #eef1f5; }
+.pill.ok { background: #e7f6ed; color: var(--ok); }
+.pill.bad { background: #fdecec; color: var(--bad); }
+.total-box { font-size: 26px; font-weight: 700; }
+
+.login { max-width: 360px; margin: 12vh auto; }
+.login form { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------- Printing ---------- */
+.print-only { display: none; }
+@media print {
+  @page { size: A4 landscape; margin: 8mm; }
+  body { background: #fff; }
+  .no-print, .sidebar { display: none !important; }
+  .main { padding: 0; }
+  .print-only { display: block; }
+  .print-page { page-break-after: always; }
+  .print-page:last-child { page-break-after: auto; }
+}
+
+/* ---------- Fee voucher (2 copies on A4 landscape) ---------- */
+.voucher-sheet { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: #fff; margin-bottom: 16px; border: 1px solid var(--line); }
+.voucher { padding: 14px 18px; border-right: 1px dashed #b8c0cc; font-size: 12px; display: flex; flex-direction: column; gap: 8px; }
+.voucher:last-child { border-right: 0; }
+.voucher .tag { align-self: flex-start; color: #fff; font-weight: 700; font-size: 10px; padding: 3px 10px; border-radius: 99px; letter-spacing: .5px; }
+.voucher .school { font-weight: 800; font-size: 16px; text-transform: uppercase; }
+.voucher .addr { color: var(--muted); font-size: 11px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.voucher .vtitle { display: flex; justify-content: space-between; font-weight: 800; letter-spacing: .5px; }
+.voucher .vtitle .no { color: var(--ink); font-weight: 600; font-size: 11px; }
+.voucher .payable { display: flex; justify-content: space-between; align-items: center; border: 1px solid; border-radius: 10px; padding: 8px 12px; }
+.voucher .big { font-size: 22px; font-weight: 800; }
+.voucher .small { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: .5px; }
+.voucher .after { text-align: right; font-size: 11px; color: var(--muted); }
+.voucher .after b { color: var(--bad); }
+.voucher .info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-weight: 700; }
+.voucher .info span { display: block; font-size: 9px; color: var(--muted); letter-spacing: .5px; }
+.voucher table.lines { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; border-collapse: separate; border-spacing: 0; }
+.voucher table.lines th, .voucher table.lines td { font-size: 12px; padding: 5px 10px; }
+.voucher table.lines td.num { font-weight: 700; }
+.voucher table.lines tr.tot td { background: #14243d; color: #fff; font-weight: 800; border: 0; }
+.voucher .hist .legend { float: right; font-weight: 400; }
+.voucher .hist i, .voucher .bars i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin: 0 2px; }
+.voucher .bars { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2px; text-align: center; font-size: 8px; color: var(--muted); margin-top: 4px; }
+.voucher .bars i { display: block; width: auto; height: 18px; margin: 0 0 2px; background: #f0f2f5; }
+.voucher i.paid { background: #1e8e4e !important; }
+.voucher i.due { background: #e0a030 !important; }
+.voucher .notice { display: flex; gap: 10px; align-items: center; background: #f7f8fa; border-radius: 8px; padding: 8px; font-size: 10.5px; }
+.voucher .sign { display: flex; justify-content: space-between; margin-top: 24px; font-size: 11px; color: var(--muted); }
+.voucher .sign span { border-top: 1px solid #b8c0cc; padding-top: 4px; width: 42%; text-align: center; }
+@media print {
+  .voucher-sheet { border: 0; margin: 0; height: 190mm; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ---------- Receipt ---------- */
+.receipt { background: #fff; border: 1px solid var(--line); padding: 20px; max-width: 520px; }
+.receipt h3 { margin: 0; text-transform: uppercase; }
+@media print { .receipt { border: 0; } }
