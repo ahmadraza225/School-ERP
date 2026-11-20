@@ -2,7 +2,9 @@ import { createClient } from '@supabase/supabase-js'
 
 // Trim stray spaces/quotes that often sneak in when pasting keys into a hosting dashboard.
 const clean = (v: unknown) => String(v ?? '').trim().replace(/^["']|["']$/g, '').trim()
-const url = clean(import.meta.env.VITE_SUPABASE_URL).replace(/\/+$/, '')
+const rawUrl = clean(import.meta.env.VITE_SUPABASE_URL)
+// Keep only https://xxxx.supabase.co — drop any path such as /rest/v1/ copied from the dashboard.
+const url = (() => { try { return new URL(rawUrl).origin } catch { return rawUrl } })()
 const key = clean(import.meta.env.VITE_SUPABASE_ANON_KEY)
 
 // eslint-disable-next-line no-control-regex
