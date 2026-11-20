@@ -1,6 +1,6 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from './lib/auth'
-import { configured, supabase } from './lib/supabase'
+import { configProblem, configured, supabase } from './lib/supabase'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Students from './pages/Students'
@@ -22,7 +22,8 @@ export default function App() {
   if (!configured) return (
     <div className="login card">
       <h1>Setup needed</h1>
-      <p>Supabase keys are missing. Copy <code>.env.example</code> to <code>.env</code> and fill in your project URL and anon key (see README).</p>
+      <p className="msg err">{configProblem}</p>
+      <p>Fix it in Netlify: Project configuration → Environment variables, then Deploys → Trigger deploy.</p>
     </div>
   )
   if (loading) return <p style={{ padding: 24 }}>Loading…</p>
