@@ -44,6 +44,13 @@ It runs in Chrome. All office PCs share one cloud database (Supabase), so it als
 2. Counter: **Collect Fee** → search → *Receive* → print receipt.
 3. After the due date: **Defaulters**.
 
+## Running on a Mac (no Netlify needed)
+The database stays on Supabase (free); only the web screens run on your Mac.
+1. Install Node.js LTS from <https://nodejs.org>.
+2. Download this repository (GitHub → Code → Download ZIP, unzip) or `git clone` it.
+3. Double-click `start-mac.command`. First time it asks for the Supabase URL and publishable key.
+4. Chrome opens <http://localhost:5173>. Other PCs on the same network use the address shown in the window.
+
 ## Running locally (developers)
 ```bash
 cd app && cp .env.example .env   # fill in the two keys
