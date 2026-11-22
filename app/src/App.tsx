@@ -1,5 +1,5 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
-import { useAuth } from './lib/auth'
+import { resetLogin, useAuth } from './lib/auth'
 import { configProblem, configured, supabase } from './lib/supabase'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
@@ -17,7 +17,7 @@ import SettingsPage from './pages/Settings'
 const ROLE_LABEL = { owner: 'Owner', principal: 'Principal', accountant: 'Accountant', pending: 'Pending' }
 
 export default function App() {
-  const { session, profile, loading } = useAuth()
+  const { session, profile, loading, error } = useAuth()
 
   if (!configured) return (
     <div className="login card">
@@ -27,6 +27,19 @@ export default function App() {
     </div>
   )
   if (loading) return <p style={{ padding: 24 }}>Loading…</p>
+  if (error) return (
+    <div className="login card">
+      <h1>Can't reach the database</h1>
+      <p className="msg err">{error === 'timeout' ? 'The database did not answer in time.' : error}</p>
+      <p>Most likely the free Supabase project is <b>paused</b> after a few days without use. Open
+        supabase.com, open the project and click <b>Restore project</b>, wait 2–3 minutes, then retry.
+        Also check this computer's internet connection.</p>
+      <div className="row">
+        <button className="primary" onClick={() => location.reload()}>Retry</button>
+        <button onClick={resetLogin}>Sign in again</button>
+      </div>
+    </div>
+  )
   if (!session) return <Login />
   if (!profile || profile.role === 'pending') return (
     <div className="login card">
